@@ -1,0 +1,168 @@
+<!doctype html>
+
+<html>
+	<head>
+
+<!--		<script type="text/javascript" src="http://code.jquery.com/jquery-2.1.3.min.js">
+-->
+
+		<style type="text/css">
+			body{
+				margin: 0;
+				padding: 0;
+			}
+
+			ul{
+				margin: 0;
+				padding: 0;
+			}
+			ul li{
+				list-style: none;
+				overflow: hidden;
+				height: 600px;
+				position: relative;
+			}
+
+			.parallax-background{
+				height: 700px;
+			}
+
+			.lens{
+				background-image: url(owl.jpg);
+			}
+			.flower{
+				background-image: url(reptile.jpg);
+				background-position: 50% 80%
+			}
+			.beach{
+				background-image: url(reptile2.jpg);
+				background-position: 0% 50%
+			}
+			.wolf{
+				background-image: url(reptile3.jpg);
+				background-position: 0% 50%
+			}
+
+			ul li .subcontent{
+				position: absolute;
+				top: 10px;
+				left: 90px;
+				color: white;
+				font-family: helvetica;
+			}
+			ul li .subcontent1{
+				position: absolute;
+				top: 100px;
+				left: 100px;
+				color: white;
+				font-family: helvetica;
+			}
+			h1{
+				font-size: 70px;
+				margin-bottom: 0px;
+			}
+			h2{
+				font-size: 59px;
+				margin-top: 0px;
+			}
+
+		</style>
+
+
+	</head>
+
+	<body>
+
+		<ul class ="parallax">
+			<li>
+
+				<div class="parallax-background flower"></div>
+				<div class="subcontent">
+					<h1>Simple Parallax Effect</h1>
+					<h2>by Zeyad Saleh</h2>
+				</div>
+
+			</li>
+			<li>
+
+				<div class="parallax-background lens"></div>
+				<div class="subcontent1">
+					<h1>Using html</h1>
+					<h2>and css</h2>
+				</div>
+
+			</li>
+			<li>
+
+				<div class="parallax-background beach"></div>
+				<div class="subcontent1">
+					<h1>JavaScript</h1>
+				</div>
+
+			</li>
+			<li>
+
+				<div class="parallax-background wolf"></div>
+				<div class="subcontent1">
+					<h1>And JQuery</h1>
+				</div>
+
+			</li>
+		</ul>
+
+
+		<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js">
+
+		</script>
+
+		<script>
+
+			(function($){
+
+
+				var $container = $(".parallax");
+				var $divs = $container.find("div.parallax-background");
+				var thingBeingScrolled = document.body;
+				var liHeight = $divs.eq(0).closest("li").height();
+				var diffHeight = $divs.eq(0).height() - liHeight;
+
+				var i,len,div,li,offset,scroll,top;
+
+				var render = function() {
+
+					//thing we're scrolling
+					top = thingBeingScrolled.scrollTop;
+					
+					//loop through divs
+					for(i=0, len=$divs.length; i<len; i++){
+						//get one div
+						div = $divs[i];
+
+						//get the parent LI
+						//li = div.parentNode;
+
+						//calculate the offsetTop of the div
+						offset = $(div).offset().top;
+
+						//calculate the amount to scroll
+						scroll = Math.round(((top - offset)/liHeight) * diffHeight);
+
+						//apply the scroll amount
+						div.style.webkitTransform = "translate3d(0px," +scroll+ "px,0px)";
+					}
+
+				};
+
+				(function loop(){
+					requestAnimationFrame(loop);
+					render();
+				})();
+
+			})(jQuery);
+
+
+		</script>
+
+
+	</body>
+</html>
